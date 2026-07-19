@@ -1,5 +1,4 @@
 import streamlit as st
-import json
 import pandas as pd
 import random
 
@@ -73,18 +72,16 @@ if st.button("generate tags"):
     if not available_tags:
         st.warning("no tags available for the selected categories.")
     else:
+        random.shuffle(available_tags)
         final_tags = random.sample(available_tags, min(num_tags, len(available_tags)))
         
         st.subheader("your tags")
         
-        st.write("comma separated format:")
+        st.write("text format:")
         comma_separated = ", ".join(final_tags)
         st.code(comma_separated, language="text")
         
         st.write("hashtag format:")
         hashtags = " ".join([f"#{tag.replace(' ', '')}" for tag in final_tags])
         st.code(hashtags, language="text")
-        
-        st.write("json array format:")
-        json_format = json.dumps(final_tags, indent=2)
-        st.code(json_format, language="json")
+
